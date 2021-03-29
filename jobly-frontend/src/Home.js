@@ -1,7 +1,12 @@
+import './CSS/Home.css'
+
 const Home = () => {
     return (
-      <div>
-        <h1>I'm the home page!</h1>
+      <div className="Home">
+        <h1>Jobly</h1>
+        <p>All the jobs in one, convenient place.</p>
+        <button>Log In</button>
+        <button>Sign up</button>
       </div>
     );
   };
