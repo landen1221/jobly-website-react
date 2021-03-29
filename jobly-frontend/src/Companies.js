@@ -1,7 +1,45 @@
+import JoblyApi from "./API/JoblyApi";
+import { useState, useEffect } from "react";
+import CompanyCard from "./CompanyCard";
+import { Table } from "reactstrap";
+import "./CSS/Companies.css";
+import Loading from "./Loading";
+import SearchBar from "./Search";
+
 const Companies = () => {
+  const [companies, setCompanies] = useState(null);
+
+  useEffect(() => {
+    async function getCompanies() {
+      const allCompanies = await JoblyApi.getCompanies();
+      setCompanies(allCompanies);
+    }
+    getCompanies();
+  }, []);
+
+  if (!companies) return <Loading />;
+
   return (
-    <div>
+    <div className="Companies">
       <h1>List of all companies!</h1>
+      <br/>
+      <SearchBar />
+      <br/>
+
+      <Table striped>
+        <tbody>
+          {companies.map((company) => (
+            <CompanyCard
+              key={company.handle}
+              handle={company.handle}
+              name={company.name}
+              numEmployees={company.num_employees}
+              description={company.description}
+              logoURL={company.logoUrl}
+            />
+          ))}
+        </tbody>
+      </Table>
     </div>
   );
 };

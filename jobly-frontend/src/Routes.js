@@ -7,7 +7,7 @@ import Login from "./Login";
 import Profile from "./Profile";
 import Signup from "./Signup";
 import SingleCompany from "./SingleCompany";
-import SingleJob from "./SingleJob";
+import SingleJob from "./JobCard";
 
 
 function Routes() {

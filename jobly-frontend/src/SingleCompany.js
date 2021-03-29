@@ -1,28 +1,55 @@
-import JoblyApi from "./JoblyAPI"
-import { useState, useEffect} from 'react'
+import JoblyApi from "./API/JoblyApi";
+import { useState, useEffect } from "react";
+import JobCard from "./JobCard";
+import { Table, Row, Col, Button } from "reactstrap";
+import { Link } from "react-router-dom";
+import "./CSS/SingleCompany.css";
 
 const SingleCompany = () => {
-  const [company, setCompany] = useState(null)
-  
+  const [company, setCompany] = useState(null);
 
   useEffect(() => {
     async function getCompany() {
-      const newCompany = await JoblyApi.getCompany('bauer-gallagher')
-      setCompany(newCompany)
+      const newCompany = await JoblyApi.getCompany("bauer-gallagher");
+      setCompany(newCompany);
     }
-    getCompany()
-    
-  }, []) 
+    getCompany();
+  }, []);
 
-  console.log(company)
+  console.log(company);
+
+  if (!company) return <p>Loading!</p>;
 
   return (
-      <div>
-        <h1>Single Company</h1>
-        <p>Company: {company}</p>
+    <div className="SingleCompany">
+      <Row>
+        <Col sm="2">
+          <Link to="/companies">
+            <u>All Companies</u>
+          </Link>
+        </Col>
+        <Col sm="8">
+          <h1>Careers at {company.name}</h1>
+          <br />
+        </Col>
+      </Row>
+      <div className="Jobs">
+        <Table striped>
+          <tbody>
+            {company.jobs.map((job) => (
+              <JobCard
+                key={job.id}
+                title={job.title}
+                salary={job.salary}
+                equity={job.equity}
+                companyHandle={job.company_handle}
+              />
+            ))}
+          </tbody>
+        </Table>
       </div>
-    );
-  };
-  
-  export default SingleCompany;
-  
+    </div>
+  );
+};
+
+export default SingleCompany;
