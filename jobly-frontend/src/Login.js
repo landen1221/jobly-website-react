@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './CSS/Login.css'
 
 const Login = () => {
   const INITIAL_STATE = {
@@ -18,8 +19,32 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h1>Login Form2</h1>
+    <>
+    <h3>Login:</h3>
+    <div className="Form">
+      
+      {/* <Form onSubmit={handleSubmit}>
+        <FormGroup>
+          <Label for="username">Username:</Label>
+          <Input
+            type="text"
+            value={formData.username}
+            id="username"
+            name="username"
+            onChange={handleChange}
+          />
+          <Label for="password">Password:</Label>
+          <Input
+            type="password"
+            value={formData.password}
+            id="password"
+            name="password"
+            onChange={handleChange}
+          />
+        </FormGroup>
+        <Button>Submit</Button>
+      </Form> */}
+
       <form onSubmit={handleSubmit}>
         <label>Username:</label>
         <input
@@ -28,7 +53,7 @@ const Login = () => {
           id="username"
           name="username"
           onChange={handleChange}
-        />
+        /> <br/>
         <label>Password:</label>
         <input
           type="password"
@@ -36,9 +61,11 @@ const Login = () => {
           id="password"
           name="password"
           onChange={handleChange}
-        />
+        /> <br/>
+        <button>Submit</button>
       </form>
     </div>
+    </>
   );
 };
 

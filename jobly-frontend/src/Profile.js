@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import './CSS/Profile.css'
 
 const Profile = () => {
   
@@ -23,8 +24,9 @@ const Profile = () => {
   };
 
   return (
-    <div>
-      <h1>Profile</h1>
+    <>
+    <h3>Edit Profile:</h3>
+    <div className="Form Profile">
       <h5>Username: <span className="notBold">{formData.username}</span> </h5>
       <form onSubmit={handleSubmit}>
         <label>Password:</label>
@@ -34,7 +36,7 @@ const Profile = () => {
           id="password"
           name="password"
           onChange={handleChange}
-        />
+        /><br/>
         <label>First Name:</label>
         <input
           type="text"
@@ -42,7 +44,7 @@ const Profile = () => {
           id="firstName"
           name="firstName"
           onChange={handleChange}
-        />
+        /><br/>
         <label>Last Name:</label>
         <input
           type="text"
@@ -50,7 +52,7 @@ const Profile = () => {
           id="lastName"
           name="lastName"
           onChange={handleChange}
-        />
+        /><br/>
         <label>Email:</label>
         <input
           type="text"
@@ -58,9 +60,11 @@ const Profile = () => {
           id="email"
           name="email"
           onChange={handleChange}
-        />
+        /><br/>
       </form>
+      <button>Submit</button>
     </div>
+    </>
   );
   };
   

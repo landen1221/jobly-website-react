@@ -1,0 +1,26 @@
+.Form {
+    width: 25%;
+    border: 3px solid grey;
+    border-radius: 20px;
+    position: absolute;
+    left: 50%;
+    top: 28%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: rgb(245, 245, 245);
+}
+
+.Form form {
+    margin: 25px;
+}
+
+.Form input {
+    margin-left: 10px;
+    margin-top: 10px
+    
+}
+
+.Form button {
+    background-color: lightblue;
+    margin-left: 200px;
+}

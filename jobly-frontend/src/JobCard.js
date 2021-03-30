@@ -2,7 +2,6 @@ import "./CSS/JobCard.css";
 import { Button } from "reactstrap";
 
 const JobCard = ({ title, salary, equity, companyName }) => {
-  console.log(companyName)
   return (
     <tr className="JobCard">
       <td style={{width: '25%'}}>

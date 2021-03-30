@@ -1,7 +1,7 @@
 import JoblyApi from "./API/JoblyApi";
 import { useState, useEffect } from "react";
 import JobCard from "./JobCard";
-import { Table, Row, Col, Button } from "reactstrap";
+import { Table, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 import "./CSS/SingleCompany.css";
 
@@ -16,16 +16,15 @@ const SingleCompany = () => {
     getCompany();
   }, []);
 
-  console.log(company);
-
   if (!company) return <p>Loading!</p>;
 
   return (
+    
     <div className="SingleCompany">
       <Row>
         <Col sm="2">
           <Link to="/companies">
-            <u>All Companies</u>
+            <button id="backButton">Go back</button>
           </Link>
         </Col>
         <Col sm="8">
@@ -42,7 +41,7 @@ const SingleCompany = () => {
                 title={job.title}
                 salary={job.salary}
                 equity={job.equity}
-                companyHandle={job.company_handle}
+                companyName={company.name}
               />
             ))}
           </tbody>

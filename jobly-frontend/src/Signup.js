@@ -1,4 +1,6 @@
 import { useState } from "react";
+import JoblyApi from "./API/JoblyApi";
+import './CSS/Signup.css'
 
 const Signup = () => {
   const INITIAL_STATE = {
@@ -10,6 +12,7 @@ const Signup = () => {
   };
 
   const [formData, setFormData] = useState(INITIAL_STATE);
+  const [token, setToken] = useState(null)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,54 +21,72 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+        
+    const jsonFormData = JSON.stringify(formData)
+    console.log(jsonFormData)
+
+    async function registerUser(){
+      const token = await JoblyApi.registerUser(jsonFormData)
+      setToken(token)
+    }
+    registerUser()
+
   };
 
   return (
-    <div>
-      <h1>Login Form2</h1>
-      <form onSubmit={handleSubmit}>
-        <label>Username:</label>
-        <input
-          type="text"
-          value={formData.username}
-          id="username"
-          name="username"
-          onChange={handleChange}
-        />
-        <label>Password:</label>
-        <input
-          type="password"
-          value={formData.password}
-          id="password"
-          name="password"
-          onChange={handleChange}
-        />
-        <label>First Name:</label>
-        <input
-          type="text"
-          value={formData.firstName}
-          id="firstName"
-          name="firstName"
-          onChange={handleChange}
-        />
-        <label>Last Name:</label>
-        <input
-          type="text"
-          value={formData.lastName}
-          id="lastName"
-          name="lastName"
-          onChange={handleChange}
-        />
-        <label>Email:</label>
-        <input
-          type="text"
-          value={formData.email}
-          id="email"
-          name="email"
-          onChange={handleChange}
-        />
-      </form>
-    </div>
+    <>
+      <h3>Signup:</h3>
+      <div className="Form Signup">
+        <form>
+          <label>Username:</label>
+          <input
+            type="text"
+            value={formData.username}
+            id="username"
+            name="username"
+            onChange={handleChange}
+          />{" "}
+          <br />
+          <label>Password:</label>
+          <input
+            type="password"
+            value={formData.password}
+            id="password"
+            name="password"
+            onChange={handleChange}
+          />{" "}
+          <br />
+          <label>First Name:</label>
+          <input
+            type="text"
+            value={formData.firstName}
+            id="firstName"
+            name="firstName"
+            onChange={handleChange}
+          />{" "}
+          <br />
+          <label>Last Name:</label>
+          <input
+            type="text"
+            value={formData.lastName}
+            id="lastName"
+            name="lastName"
+            onChange={handleChange}
+          />{" "}
+          <br />
+          <label>Email:</label>
+          <input
+            type="text"
+            value={formData.email}
+            id="email"
+            name="email"
+            onChange={handleChange}
+          />{" "}
+          <br />
+        </form>
+        <button type="submit" onClick={handleSubmit}>Submit</button>
+      </div>
+    </>
   );
 };
 
