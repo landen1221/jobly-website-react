@@ -7,16 +7,13 @@ import Login from "./Login";
 import Profile from "./Profile";
 import Signup from "./Signup";
 import SingleCompany from "./SingleCompany";
-import SingleJob from "./JobCard";
-
 
 function Routes() {
   return (
     <Switch>
       <Route exact path="/companies"><Companies /></Route>
-      <Route exact path="/companies/:anything"><SingleCompany /></Route>
+      <Route exact path="/companies/:companyHandle"><SingleCompany /></Route>
       <Route exact path="/jobs"><Jobs /></Route>
-      <Route exact path="/jobs/:anything"><SingleJob /></Route>
       <Route exact path="/login"><Login /></Route>
       <Route exact path="/profile"><Profile /></Route>
       <Route exact path="/signup"><Signup /></Route>

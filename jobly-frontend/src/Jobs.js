@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Loading from "./Loading";
 import { Table } from 'reactstrap';
 import JobCard from './JobCard'
-import SearchBar from "./Search";
+import SearchBar from "./JobSearch";
 import "./CSS/Jobs.css"
 
 const Jobs = () => {
@@ -22,10 +22,10 @@ const Jobs = () => {
 
   return (
     <div className="Jobs">
-      <h1>List of All Jobs!</h1>
+      <h1>Avaialble Jobs!</h1>
 
       <br />
-      <SearchBar />
+      <SearchBar setJobs={setJobs}/>
       <br />
 
       <Table striped>

@@ -4,7 +4,7 @@ import CompanyCard from "./CompanyCard";
 import { Table } from "reactstrap";
 import "./CSS/Companies.css";
 import Loading from "./Loading";
-import SearchBar from "./Search";
+import CompanySearch from "./CompanySearch";
 
 const Companies = () => {
   const [companies, setCompanies] = useState(null);
@@ -21,9 +21,9 @@ const Companies = () => {
 
   return (
     <div className="Companies">
-      <h1>List of all companies!</h1>
+      <h1>Companies Currently Hiring</h1>
       <br/>
-      <SearchBar />
+      <CompanySearch setCompanies={setCompanies} />
       <br/>
 
       <Table striped>

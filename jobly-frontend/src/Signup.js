@@ -1,8 +1,11 @@
 import { useState } from "react";
 import JoblyApi from "./API/JoblyApi";
 import './CSS/Signup.css'
+import {useHistory} from 'react-router-dom'
+import { Button } from "reactstrap";
 
 const Signup = () => {
+  const history = useHistory();
   const INITIAL_STATE = {
     username: "",
     password: "",
@@ -21,15 +24,13 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-        
-    const jsonFormData = JSON.stringify(formData)
-    console.log(jsonFormData)
 
     async function registerUser(){
-      const token = await JoblyApi.registerUser(jsonFormData)
+      const token = await JoblyApi.registerUser(formData)
       setToken(token)
     }
     registerUser()
+    history.push('/jobs')
 
   };
 
@@ -84,7 +85,7 @@ const Signup = () => {
           />{" "}
           <br />
         </form>
-        <button type="submit" onClick={handleSubmit}>Submit</button>
+        <Button type="submit" color="primary mt-2" onClick={handleSubmit}>Submit</Button>
       </div>
     </>
   );

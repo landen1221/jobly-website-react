@@ -1,25 +1,27 @@
 import JoblyApi from "./API/JoblyApi";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import JobCard from "./JobCard";
 import { Table, Row, Col } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./CSS/SingleCompany.css";
+import userContext from "./context/UserContext";
+import Loading from "./Loading";
 
 const SingleCompany = () => {
+  const { companyHandle } = useParams();
   const [company, setCompany] = useState(null);
 
   useEffect(() => {
     async function getCompany() {
-      const newCompany = await JoblyApi.getCompany("bauer-gallagher");
+      const newCompany = await JoblyApi.getCompany(companyHandle);
       setCompany(newCompany);
     }
     getCompany();
   }, []);
 
-  if (!company) return <p>Loading!</p>;
+  if (!company) return <Loading />;
 
   return (
-    
     <div className="SingleCompany">
       <Row>
         <Col sm="2">

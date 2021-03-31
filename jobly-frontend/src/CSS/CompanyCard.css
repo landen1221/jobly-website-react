@@ -2,15 +2,13 @@
     display: flex;
     align-items: center;
     margin-top: 10px;
-    color: black;
-    background-color: lightblue;
+    color: white;
     font-size: .75em;
 }
 
 .CompanyCard .centerColumn {
     text-align: left;
     margin-left: 15px;
-
 }
 
 .CompanyCard img {

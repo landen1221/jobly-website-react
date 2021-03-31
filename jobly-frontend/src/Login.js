@@ -1,13 +1,19 @@
 import { useState } from "react";
 import './CSS/Login.css'
+import JoblyApi from "./API/JoblyApi";
+import {useHistory} from 'react-router-dom'
+import { Button } from "reactstrap";
+
 
 const Login = () => {
+  const history = useHistory();
   const INITIAL_STATE = {
     username: "",
     password: "",
   };
 
   const [formData, setFormData] = useState(INITIAL_STATE);
+  const [token, setToken] = useState(null)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,35 +22,35 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    async function loginUser(){
+      const token = await JoblyApi.loginUser(formData)
+      setToken(token)
+    }
+    loginUser()
+
+    // Promise.all([loginUser]).then(() => {
+    //   if (token) {
+    //     history.push('/companies')
+    //   } else {
+    //     alert('invalide login info')
+    //   }
+    // })
+
+
+
+    if (token) {
+      history.push('/companies')
+    } else {
+      alert('invalide login info')
+    }
+
   };
 
   return (
     <>
     <h3>Login:</h3>
     <div className="Form">
-      
-      {/* <Form onSubmit={handleSubmit}>
-        <FormGroup>
-          <Label for="username">Username:</Label>
-          <Input
-            type="text"
-            value={formData.username}
-            id="username"
-            name="username"
-            onChange={handleChange}
-          />
-          <Label for="password">Password:</Label>
-          <Input
-            type="password"
-            value={formData.password}
-            id="password"
-            name="password"
-            onChange={handleChange}
-          />
-        </FormGroup>
-        <Button>Submit</Button>
-      </Form> */}
-
       <form onSubmit={handleSubmit}>
         <label>Username:</label>
         <input
@@ -62,7 +68,7 @@ const Login = () => {
           name="password"
           onChange={handleChange}
         /> <br/>
-        <button>Submit</button>
+        <Button color="primary mt-2">Submit</Button>
       </form>
     </div>
     </>

@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import './CSS/Profile.css'
+import { Button } from "reactstrap";
 
 const Profile = () => {
   
@@ -60,9 +61,9 @@ const Profile = () => {
           id="email"
           name="email"
           onChange={handleChange}
-        /><br/>
+        />
       </form>
-      <button>Submit</button>
+      <Button color="primary mt-2">Submit</Button>
     </div>
     </>
   );

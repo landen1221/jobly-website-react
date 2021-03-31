@@ -55,10 +55,50 @@ class JoblyApi {
     return res.jobs;
   }
 
+  // expects { username, password, firstName, lastName, email }
   static async registerUser(data) {
     let res = await this.request('auth/register', data, 'post')
-    console.log(res)  
+    console.log(res)
+    return res.token;  
   }
+
+  // expects {username, password}
+  static async loginUser(data) {
+    let res = await this.request('auth/token', data, 'post')
+    console.log('***************')
+    console.log(res)
+    return res.token
+  }
+
+  static async jobSearch({title, hasEquity, minSalary}) {
+    let url = 'jobs?'
+    if (title) {
+      url = url + `title=${title}&`
+    }
+
+    if (hasEquity) {
+      url = url + `hasEquity=${hasEquity}&`
+    }
+
+    if (minSalary) {
+      url = url + `minSalary=${minSalary}`
+    }
+
+    let res = await this.request(url)
+    return res.jobs
+
+  }
+
+  static async companySearch({company}) {
+    let url = 'companies?'
+    if (company) {
+      url = url + `name=${company}`
+    }
+    console.log(url)
+    let res = await this.request(url)
+    return res.companies
+  }
+
 }
 
 // for now, put token ("testuser" / "password" on class)
