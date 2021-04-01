@@ -4,15 +4,27 @@ import Routes from "./Routes";
 import "./App.css";
 import UserContext from "./context/UserContext";
 import {useState} from 'react'
+import JoblyApi from "./API/JoblyApi";
 
 function App() {
-  const testUser = { username: "frank" };
-  const [user, setUser] = useState(testUser);
-  const [token, setToken] = useState(testUser);
+  const [token, setToken] = useState(null)
+
+  const login = (userToken, username) => {
+    localStorage.setItem('token', userToken)
+    JoblyApi.token = userToken
+    localStorage.setItem('username', username)
+  }
+
+  const logout = () => {
+    localStorage.removeItem('token')
+    setToken(null)
+    JoblyApi.token = ""
+    localStorage.removeItem('username')
+  }
 
   return (
     <div className="App">
-      <UserContext.Provider value={user, token, setToken}>
+      <UserContext.Provider value={{login, logout, token, setToken}}>
         <BrowserRouter>
           <Nav />
           <Routes />

@@ -1,19 +1,29 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import './CSS/Profile.css'
 import { Button } from "reactstrap";
+import JoblyApi from './API/JoblyApi';
 
 const Profile = () => {
+  const currentUser = localStorage.getItem('username')
   
   // FIXME: bring from state or local storage
   const INITIAL_STATE = {
-    username: 'testing',
-    password: 'password',
+    username: 'username',
     firstName: 'firstName',
     lastName: "lastName",
     email: "email",
   };
 
   const [formData, setFormData] = useState(INITIAL_STATE);
+  const [username, setUsername] = useState(currentUser)
+
+  useEffect(() =>{
+    async function getUserDetails() {
+      const user = await JoblyApi.getUserDetails(currentUser)
+      setFormData(user)
+    }
+    getUserDetails();
+  }, [username])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,6 +32,15 @@ const Profile = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    async function editUserDetails() {
+      const updatedUser = await JoblyApi.editUserDetails(username, formData)
+      setFormData(updatedUser)
+    }
+
+    editUserDetails()
+    setUsername(currentUser)
+    
   };
 
   return (
@@ -29,15 +48,7 @@ const Profile = () => {
     <h3>Edit Profile:</h3>
     <div className="Form Profile">
       <h5>Username: <span className="notBold">{formData.username}</span> </h5>
-      <form onSubmit={handleSubmit}>
-        <label>Password:</label>
-        <input
-          type="password"
-          value={formData.password}
-          id="password"
-          name="password"
-          onChange={handleChange}
-        /><br/>
+      <form>
         <label>First Name:</label>
         <input
           type="text"
@@ -61,9 +72,9 @@ const Profile = () => {
           id="email"
           name="email"
           onChange={handleChange}
-        />
+        /><br/>
       </form>
-      <Button color="primary mt-2">Submit</Button>
+      <Button color="primary mt-2" type="submit" onClick={handleSubmit}>Submit</Button>
     </div>
     </>
   );

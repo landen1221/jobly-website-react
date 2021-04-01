@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import JoblyApi from "./API/JoblyApi";
 import './CSS/Signup.css'
 import {useHistory} from 'react-router-dom'
 import { Button } from "reactstrap";
+import UserContext from './context/UserContext'
+
 
 const Signup = () => {
+  const { login, token, setToken} = useContext(UserContext)
   const history = useHistory();
   const INITIAL_STATE = {
     username: "",
@@ -15,7 +18,6 @@ const Signup = () => {
   };
 
   const [formData, setFormData] = useState(INITIAL_STATE);
-  const [token, setToken] = useState(null)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,8 +32,13 @@ const Signup = () => {
       setToken(token)
     }
     registerUser()
-    history.push('/jobs')
 
+    if (token) {
+      login(token, formData.username)
+      history.push('/jobs')  
+    } 
+    
+    history.push('/jobs')
   };
 
   return (

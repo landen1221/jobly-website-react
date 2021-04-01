@@ -1,11 +1,16 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import './CSS/Login.css'
 import JoblyApi from "./API/JoblyApi";
 import {useHistory} from 'react-router-dom'
 import { Button } from "reactstrap";
 
+import UserContext from './context/UserContext'
+
 
 const Login = () => {
+  const { login, token, setToken} = useContext(UserContext)
+  
+
   const history = useHistory();
   const INITIAL_STATE = {
     username: "",
@@ -13,7 +18,6 @@ const Login = () => {
   };
 
   const [formData, setFormData] = useState(INITIAL_STATE);
-  const [token, setToken] = useState(null)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,19 +32,10 @@ const Login = () => {
       setToken(token)
     }
     loginUser()
-
-    // Promise.all([loginUser]).then(() => {
-    //   if (token) {
-    //     history.push('/companies')
-    //   } else {
-    //     alert('invalide login info')
-    //   }
-    // })
-
-
-
+    
     if (token) {
-      history.push('/companies')
+      login(token, formData.username)
+      history.push('/jobs')
     } else {
       alert('invalide login info')
     }
@@ -68,7 +63,7 @@ const Login = () => {
           name="password"
           onChange={handleChange}
         /> <br/>
-        <Button color="primary mt-2">Submit</Button>
+        <Button color="primary mt-2" >Submit</Button>
       </form>
     </div>
     </>

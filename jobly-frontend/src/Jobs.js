@@ -22,7 +22,7 @@ const Jobs = () => {
 
   return (
     <div className="Jobs">
-      <h1>Avaialble Jobs!</h1>
+      <h1>Available Jobs!</h1>
 
       <br />
       <SearchBar setJobs={setJobs}/>
@@ -30,7 +30,7 @@ const Jobs = () => {
 
       <Table striped>
         <tbody>
-          {jobs.map(job => <JobCard key={job.id} title={job.title} salary={job.salary} equity={job.equity} companyName={job.companyName} />)}
+          {jobs.map(job => <JobCard key={job.id} id={job.id} title={job.title} salary={job.salary} equity={job.equity} companyName={job.companyName} />)}
         </tbody>
       </Table>
       

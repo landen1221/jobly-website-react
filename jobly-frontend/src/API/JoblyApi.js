@@ -65,8 +65,6 @@ class JoblyApi {
   // expects {username, password}
   static async loginUser(data) {
     let res = await this.request('auth/token', data, 'post')
-    console.log('***************')
-    console.log(res)
     return res.token
   }
 
@@ -97,6 +95,28 @@ class JoblyApi {
     console.log(url)
     let res = await this.request(url)
     return res.companies
+  }
+
+  static async getUserDetails(username){
+    let res = await this.request(`users/${username}`)
+    return res.user
+  }
+
+  static async editUserDetails(username, data) {
+    delete data.username
+    delete data.isAdmin
+    delete data.applications
+    console.log(data)
+    let res = await this.request(`users/${username}`, data, 'patch')
+    alert('profile successfully updated')
+    return res.user
+    
+  }
+
+  static async applyToJob(username, jobID) {
+    let res = await this.request(`/users/${username}/jobs/${jobID}`, {}, 'post')
+    console.log(res)
+    return res
   }
 
 }
